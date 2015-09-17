@@ -9,7 +9,7 @@ example
 
 .. code-block:: python
 
-    from peakdetect_delta import peakdetect, peakdetect_sinmpleedge
+    from peakdetect_delta import peakdetect, peakdetect_simpleedge
 
     # peak are represented as a tuple ((pvalue, pidx), (sidx, eidx))
     #   pvalue: value at pidx
