@@ -1,10 +1,22 @@
 import sys
 import os
 from setuptools import setup, find_packages
+from setuptools.command.test import test as TestCommand
 
-ver_file = os.path.join(os.path.dirname(__file__), 'iontof', 'version.py')
+ver_file = os.path.join(os.path.dirname(__file__), 'peakdetect_delta', 'version.py')
 vars = {}
 exec(open(ver_file).read(), vars)
+
+# for py.test
+class PyTest(TestCommand):
+    def finalize_options(self):
+        TestCommand.finalize_options(self)
+        self.test_args = []
+        self.test_suite = True
+    def run_tests(self):
+        import pytest
+        pytest.main(self.test_args)
+
 
 setup(name='peakdetect_delta',
       version=vars['__version__'],
@@ -23,4 +35,6 @@ setup(name='peakdetect_delta',
           "License :: OSI Approved :: MIT License",
           "Development Status :: 4 - Beta",
           "Environment :: Other Environment",
-          "Operating System :: OS Independent"])
+          "Operating System :: OS Independent"],
+      tests_require=['pytest'],
+      cmdclass={'test': PyTest})
